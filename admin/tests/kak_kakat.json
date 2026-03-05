@@ -1,0 +1,14 @@
+{
+    "category": "poop",
+    "question": [
+        {
+            "question": "Сколько будет 2+2?",
+            "options": [
+                "молча",
+                "хз, лол"
+            ],
+            "correct_indices": [],
+            "points": 1
+        }
+    ]
+}
