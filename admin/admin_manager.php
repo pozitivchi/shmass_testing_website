@@ -19,7 +19,7 @@ class AdminManager{
             {
                 $formattedQuestions[]=
                 [
-                    'question' => htmlspecialchars(is_array($question['question']) ? $question['question'][0] : $question['question']),
+                    'questions' => htmlspecialchars(is_array($question['question']) ? $question['question'][0] : $question['question']),
                     'options' => array_map('htmlspecialchars', $question['options']),
                     'corrects_indices' => array_map('intval', (array)$question['corrects_indices']),
                     'points' => (int)$question['points'],
@@ -51,11 +51,11 @@ class AdminManager{
         return  array_map(fn($f) => basename($f, '.json'), glob($this->storage_directory."*.json"));
     }
 
-    //загрузка для редактирования
+    //загрузка для редактирования(рот ебал проблемная хуета)
     public function loadTest(string $fileName): ?array {
+    
     $path = rtrim($this->storage_directory, '/') . '/' . basename($fileName) . '.json';
     
-
     if (!file_exists($path)) {
         echo "пусто";
         return null; 
@@ -63,11 +63,6 @@ class AdminManager{
     
     $content = file_get_contents($path);
     $data = json_decode($content, true);
-    
-    // 3. Если JSON кривой или файл пустой - возвращаем пустой шаблон, чтобы не было Fatal Error
-    if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
-        return ['category' => 'Без названия', 'questions' => []];
-    }
     
     return $data;
     }
@@ -96,7 +91,6 @@ $admin = new AdminManager();
 
 //$admin->deleteTest('sample_test_file');
 
-
 //ВЫВЕСТИ СПИСОК
 // $tests =  $admin->listTest();
 // foreach ($tests as $testName) 
@@ -104,13 +98,62 @@ $admin = new AdminManager();
 //         echo $testName. PHP_EOL;
 //     }
 
-//Загружаем и редактируем
+//Загружаем и редактируем([хуйни рот ебал не работает норм])
 $name = "sample_test_file";
 $data = $admin->loadTest($name);
 
+// $question = $data["questions"];
+// var_dump($question);
+
+
 if ($data) {
-    $newCategory = 'Высшая математика';
+    //$data["questions"][0]["question"] = "Бебра?";
     
-    $admin->saveTest($name, $newCategory, $data['questions']);
-    echo "Тест обновлен!";
+    echo "Выбери какой вопрос редактировать!\nСписок вопросов:\n";
+    for ($i = 0; $i < count($data["questions"]); $i++) {
+        echo   $i.")".$data["questions"][$i]["question"]."\n";
+    }
+    // $number = fscanf(STDIN, "%d")[0];
+    $number_of_question=1;
+    echo "\nЧто редактировать хотите?\n1)Сам вопрос\n2)Вариант ответа\n3)Варианты правильных ответов\n4)кол-во очков\n\n";
+
+    $choice = 2 ;
+
+    switch ($choice){
+        case 1:
+            echo "Пишите: ";
+            $data["questions"][$number_of_question]["question"] = "Когда евангелион ?";
+            
+            echo "ок";
+            break;
+        case 2:
+            echo "Варианты ответа:\n";
+            for ($i = 0; $i < count($data["questions"][$number_of_question]["options"]); $i++) {
+            echo   $i.")".$data["questions"][$number_of_question]["options"][$i]."\n";
+            }   
+            $num = 1;
+            $data["questions"][$number_of_question]["options"][$num] = "Подставить жопу";
+
+        break;
+
+        case 3: 
+             echo "Варианты ответа:\n";
+
+            $data["questions"][$number_of_question]["corrects_indices"];
+            
+            echo   $i.")".$data["questions"][$number_of_question]["options"][$i]."\n";
+              
+            $num = 1;
+            $data["questions"][$number_of_question]["corrects_indices"][$num] = "витПодстаь жопу";
+            echo "";
+        break;
+
+        case 4:
+            echo "";
+        break;
+    }
+
+
+    //$admin->saveTest($name, $data["category"], $data["questions"]);
+    // echo "Тест обновлен!";
 }
