@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1 class="auth-title">Регистрация</h1>
+            <p class="auth-subtitle">Создайте новый аккаунт</p>
+        </div>
+
+        <!-- Для PHP: сюда будет подставляться ошибка -->
+        <div class="alert-error" style="display: none;">
+            Пользователь с таким именем уже существует
+        </div>
+
+        <form class="auth-form" method="POST" action="includes/auth.php">
+            <div class="form-group">
+                <label for="username" class="form-label">Имя пользователя</label>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       class="form-input" 
+                       placeholder="Придумайте логин"
+                       minlength="3"
+                       maxlength="20"
+                       required>
+                <span class="form-hint">От 3 до 20 символов</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       class="form-input" 
+                       placeholder="Придумайте пароль"
+                       minlength="3"
+                       required>
+                <span class="form-hint">Минимум 3 символа</span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password" class="form-label">Подтверждение пароля</label>
+                <input type="password" 
+                       id="confirm_password" 
+                       name="confirm_password" 
+                       class="form-input" 
+                       placeholder="Повторите пароль"
+                       minlength="3"
+                       required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Уже есть аккаунт? <a href="index.html" class="auth-link">Войти</a></p>
+        </div>
+    </div>
+
+    <!-- <script>
+        // Простая проверка совпадения паролей (для удобства)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm_password').value;
+            
+            if (password !== confirm) {
+                e.preventDefault();
+                alert('Пароли не совпадают!');
+            }
+            
+            if (password.length < 3) {
+                e.preventDefault();
+                alert('Пароль должен быть минимум 3 символа!');
+            }
+        });
+    </script> -->
+</body>
+</html>

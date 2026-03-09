@@ -1,0 +1,326 @@
+/* ========== ОСНОВНЫЕ НАСТРОЙКИ ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background: linear-gradient(135deg, #66ea71 0%, #4ba283 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* ========== КОНТЕЙНЕР ========== */
+.auth-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+}
+
+/* ========== ШАПКА ========== */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-icon {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.auth-title {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.auth-subtitle {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* ========== ФОРМА ========== */
+.auth-form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-hint {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* ========== КНОПКА ========== */
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* ========== ПОДВАЛ ========== */
+.auth-footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.auth-footer p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.auth-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* ========== ОШИБКИ ========== */
+.alert-error {
+    background: #fee;
+    color: #c33;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    border-left: 4px solid #c33;
+}
+
+/* ========== ТЕСТОВЫЕ ДАННЫЕ ========== */
+.test-data {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px dashed #ddd;
+}
+
+.test-data-title {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.test-data-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.test-data-item {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.test-role {
+    color: #555;
+    margin-right: 10px;
+}
+
+.test-data-item code {
+    background: #333;
+    color: #2ecc71;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* ========== УЛУЧШЕННАЯ АДАПТИВНОСТЬ ========== */
+
+/* Для планшетов и небольших ноутбуков */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .auth-container {
+        max-width: 450px;
+        padding: 35px 25px;
+    }
+}
+
+/* Для мобильных телефонов (горизонтальная ориентация) */
+@media screen and (max-width: 640px) {
+    .auth-container {
+        max-width: 100%;
+        padding: 30px 20px;
+    }
+    
+    .auth-icon {
+        font-size: 3rem;
+    }
+    
+    .auth-title {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        padding: 14px;
+        font-size: 1rem;
+        /* Убираем лишние отступы, которые могут вызвать наезжание */
+        margin: 0;
+    }
+}
+
+/* Для мобильных телефонов (вертикальная ориентация) */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+        align-items: flex-start; /* Контейнер прижимается к верху на очень маленьких экранах */
+    }
+    
+    .auth-container {
+        padding: 25px 15px;
+        margin: 10px 0;
+        border-radius: 16px; /* Чуть меньше скругление на мобилках */
+    }
+    
+    .auth-header {
+        margin-bottom: 20px;
+    }
+    
+    .auth-icon {
+        font-size: 2.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .auth-title {
+        font-size: 1.6rem;
+        margin-bottom: 3px;
+    }
+    
+    .auth-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .form-group {
+        margin-bottom: 15px; /* Уменьшаем отступы между полями */
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    
+    .form-input {
+        padding: 12px; /* Немного уменьшаем padding */
+        font-size: 16px; /* Важно: на мобильных 16px предотвращает автоматический зум при фокусе */
+        border-width: 1.5px;
+    }
+    
+    .form-hint {
+        font-size: 0.8rem;
+        margin-top: 4px;
+    }
+    
+    .btn {
+        padding: 14px 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        /* Убираем transform на мобилках для предотвращения смещений */
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .btn-primary:hover {
+        /* Отключаем hover-эффекты на мобильных устройствах */
+        transform: none;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-primary:active {
+        background: #5a67d8;
+        transform: scale(0.98); /* Легкое нажатие вместо hover */
+    }
+    
+    .auth-footer {
+        padding-top: 15px;
+    }
+    
+    .auth-footer p {
+        font-size: 0.9rem;
+    }
+    
+    .test-data {
+        margin-top: 20px;
+        padding: 12px;
+    }
+    
+    .test-data-title {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+    
+    .test-data-items {
+        gap: 8px;
+    }
+    
+    .test-data-item {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .test-data-item code {
+        padding: 2px 6px;
+        font-size: 0.85rem;
+    }
+}

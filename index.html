@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Вход в систему</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-    <h1>Робит</h1>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1 class="auth-title">ТестСистема</h1>
+            <p class="auth-subtitle">Войдите для доступа к тестам</p>
+        </div>
+
+        <!-- Для PHP: сюда будет подставляться ошибка -->
+        <div class="alert-error" style="display: none;">
+            Неверное имя пользователя или пароль
+        </div>
+
+        <form class="auth-form" method="POST" action="includes/auth.php">
+            <div class="form-group">
+                <label for="username" class="form-label">Имя пользователя</label>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       class="form-input" 
+                       placeholder="Введите логин"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       class="form-input" 
+                       placeholder="Введите пароль"
+                       required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Нет аккаунта? <a href="register.html" class="auth-link">Зарегистрироваться</a></p>
+        </div>
+
+        <!-- Тестовые данные (потом убрать) -->
+        <div class="test-data">
+            <p class="test-data-title">Тестовые данные:</p>
+            <div class="test-data-items">
+                <div class="test-data-item">
+                    <span class="test-role">Админ:</span>
+                    <code>Иван (Админ) / 123</code>
+                </div>
+                <div class="test-data-item">
+                    <span class="test-role">Пользователь:</span>
+                    <code>Артем (Разработчик) / qwerty</code>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
