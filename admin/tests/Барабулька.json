@@ -1,0 +1,17 @@
+{
+    "category": "Заурядная",
+    "questions": [
+        {
+            "question": "так надо",
+            "options": [
+                "1",
+                "2",
+                "3"
+            ],
+            "correct_indices": [
+                "2"
+            ],
+            "points": "2"
+        }
+    ]
+}
