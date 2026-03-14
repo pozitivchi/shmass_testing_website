@@ -1,4 +1,4 @@
-B  <?php
+<?php
 declare(strict_types=1);
 session_start();
 
@@ -198,7 +198,7 @@ if (isset($_GET['download']) && $_GET['download'] === '1') {
             <h1>📊 Результаты теста</h1>
             <div class="nav-links">
                 <?php if (isset($_SESSION['user'])): ?>
-                    <?php if ($_SESSION['role'] !== 'user'): ?>
+                    <?php if ($_SESSION['user']['role'] !== 'user'): ?>
                         <a href="admin.php">Админ-панель</a>
                     <?php endif; ?>
                     <a href="logout.php">Выход</a>

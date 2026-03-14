@@ -208,7 +208,8 @@ $testsList = getTestsList($testsDir);
             <h1>📚 Система тестирования</h1>
             <div class="nav-links">
                 <?php if (isset($_SESSION['user'])): ?>
-                    <?php if ($_SESSION['role'] !== 'user'): ?>
+                     <a href="results.php">Результаты последнего теста</a>
+                    <?php if ($_SESSION['user']['role'] !== 'user'): ?>
                         <a href="admin.php">Админ-панель</a>
                     <?php endif; ?>
                     <a href="logout.php">Выход</a>
