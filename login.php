@@ -1,0 +1,194 @@
+<?php
+require_once 'includes/config.php';   // session_start()
+require_once 'includes/database.php';
+
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $email = trim($_POST['email'] ?? '');
+    $pass  = $_POST['password'] ?? '';
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Введите корректный email';
+    }
+
+    if ($pass === '') {
+        $errors[] = 'Введите пароль';
+    }
+
+    if (empty($errors)) {
+        $st = $pdo->prepare("SELECT * FROM users WHERE email=? LIMIT 1");
+        $st->execute([$email]);
+        $user = $st->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user || !password_verify($pass, $user['password'])) {
+            $errors[] = 'Неверный email или пароль';
+        } elseif (!empty($user['is_blocked'])) {
+            $errors[] = 'Ваш аккаунт заблокирован администратором';
+        } else {
+            // ✅ успешный вход
+            $_SESSION['user'] = [
+                'id'    => $user['id'],
+                'name'  => $user['name'],
+                'email' => $user['email'],
+                'role'  => $user['role']
+            ];
+
+            header('Location: index.php');
+            exit;
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в систему</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .test-credentials {
+            background: #f0f2f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+        
+        .test-credentials p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .test-credentials strong {
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .info-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔐 Вход в систему</h1>
+        
+        
+        <?php if ($errors): ?>
+    <div style="color:red">
+    <ul>
+    <?php foreach ($errors as $e): ?>
+    <li><?=htmlspecialchars($e)?></li>
+    <?php endforeach; ?>
+    </ul>
+    </div>
+    <?php endif; ?>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Имя пользователя</label>
+               <input type="email" name="email" placeholder="Email"
+                    value="<?=htmlspecialchars($_POST['email'] ?? '')?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit">Войти</button>
+        </form>
+        
+        <p>
+            Нет аккаунта? <a href="register.php">Регистрация</a>
+        </p>
+    </div>
+</body>
+</html>
