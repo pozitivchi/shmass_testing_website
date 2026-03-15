@@ -200,7 +200,7 @@ if (isset($_GET['download']) && $_GET['download'] === '1') {
             <div class="nav-links">
                 <?php if (isset($_SESSION['user'])): ?>
                     <?php if ($_SESSION['user']['role'] !== 'user'): ?>
-                        <a href="admin.php">Админ-панель</a>
+                        <a href="admin/dashboard.php">Админ-панель</a>
                     <?php endif; ?>
                     <a href="logout.php">Выход</a>
                 <?php else: ?>
